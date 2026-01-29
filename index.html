@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字大炮游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏标题 -->
+        <div class="game-header">
+            <h1>🎯 数字大炮游戏 🎯</h1>
+            <div class="score-board">
+                <span>得分: <span id="score">0</span></span>
+                <span>生命: <span id="lives">3</span> ❤️</span>
+            </div>
+        </div>
+
+        <!-- 游戏区域 -->
+        <div class="game-area" id="gameArea">
+            <!-- 怪物会在这里生成 -->
+        </div>
+
+        <!-- 控制区域 -->
+        <div class="control-area">
+            <div class="cannon-container">
+                <div class="cannon">
+                    <div class="cannon-barrel"></div>
+                    <div class="cannon-base"></div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="countdown-display" id="countdownDisplay">
+                    <span class="countdown-text">等待怪物出现...</span>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="answerInput" placeholder="输入答案" min="0" max="20">
+                    <button id="fireBtn" class="fire-btn">🔥 发射!</button>
+                </div>
+                <div class="instructions">
+                    <p>💡 提示: 输入答案后点击发射按钮，或者按回车键发射！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div class="game-over-modal" id="gameOverModal" style="display: none;">
+            <div class="modal-content">
+                <h2>游戏结束! 🎮</h2>
+                <p>你的最终得分: <span id="finalScore">0</span></p>
+                <button id="restartBtn" class="restart-btn">🔄 再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
