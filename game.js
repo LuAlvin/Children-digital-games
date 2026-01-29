@@ -16,7 +16,7 @@ let gameState = {
 
 // 关卡配置
 const levelConfig = {
-    1: { maxSum: 11, maxNum: 10, name: '第一关' },
+    1: { maxSum: 10, maxNum: 9, name: '第一关' },
     2: { maxSum: 20, maxNum: 19, name: '第二关' },
     3: { maxSum: 100, maxNum: 99, name: '第三关' }
 };
@@ -36,7 +36,7 @@ function initGame() {
     
     updateScoreDisplay();
     document.getElementById('gameOverModal').style.display = 'none';
-    document.getElementById('countdownDisplay').querySelector('.countdown-text').textContent = '等待怪物出现...';
+    document.getElementById('countdownNumber').textContent = '--';
     document.getElementById('answerInput').value = '';
     
     // 清除游戏区域
@@ -167,8 +167,6 @@ function generateMathProblem() {
 
 // 开始倒计时
 function startCountdown() {
-    const countdownElement = document.getElementById('countdownDisplay').querySelector('.countdown-text');
-    
     // 清除之前的倒计时
     if (gameState.countdownInterval) {
         clearInterval(gameState.countdownInterval);
@@ -195,23 +193,15 @@ function startCountdown() {
 
 // 更新倒计时显示
 function updateCountdownDisplay() {
-    const countdownElement = document.getElementById('countdownDisplay').querySelector('.countdown-text');
+    const countdownNumber = document.getElementById('countdownNumber');
     
     if (!gameState.currentMonster) {
-        countdownElement.textContent = '等待怪物出现...';
-        countdownElement.classList.remove('urgent');
+        countdownNumber.textContent = '--';
         return;
     }
     
     const remainingTime = gameState.currentMonster.remainingTime;
-    countdownElement.textContent = `⏰ 怪物落地倒计时: ${remainingTime} 秒`;
-    
-    // 当时间少于5秒时，显示紧急状态
-    if (remainingTime <= 5) {
-        countdownElement.classList.add('urgent');
-    } else {
-        countdownElement.classList.remove('urgent');
-    }
+    countdownNumber.textContent = remainingTime;
 }
 
 // 开始怪物降落
@@ -296,9 +286,7 @@ function removeCurrentMonster() {
         }
         
         // 重置倒计时显示
-        const countdownElement = document.getElementById('countdownDisplay').querySelector('.countdown-text');
-        countdownElement.textContent = '等待怪物出现...';
-        countdownElement.classList.remove('urgent');
+        document.getElementById('countdownNumber').textContent = '--';
     }
 }
 

@@ -1,9 +1,13 @@
+/* 数字大炮游戏样式表 */
+
+/* 全局样式重置 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 页面主体样式 */
 body {
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -14,6 +18,7 @@ body {
     padding: 20px;
 }
 
+/* 游戏容器 */
 .game-container {
     width: 100%;
     max-width: 900px;
@@ -24,6 +29,7 @@ body {
     border: 5px solid #FFD700;
 }
 
+/* 游戏头部区域 */
 .game-header {
     background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
     padding: 20px;
@@ -31,6 +37,7 @@ body {
     border-bottom: 4px solid #FFD700;
 }
 
+/* 游戏标题 */
 .game-header h1 {
     color: white;
     font-size: 2.5em;
@@ -39,11 +46,13 @@ body {
     animation: bounce 2s ease-in-out infinite;
 }
 
+/* 标题弹跳动画 */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
 
+/* 得分板 */
 .score-board {
     display: flex;
     justify-content: center;
@@ -54,15 +63,17 @@ body {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* 游戏区域 */
 .game-area {
     width: 100%;
-    height: 400px;
+    height: 500px;
     background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
     position: relative;
     overflow: hidden;
     border-bottom: 4px solid #FFD700;
 }
 
+/* 怪物样式 */
 .monster {
     position: absolute;
     font-size: 60px;
@@ -70,17 +81,20 @@ body {
     z-index: 10;
 }
 
+/* 怪物摇摆动画 */
 @keyframes sway {
     0%, 100% { transform: rotate(-5deg); }
     50% { transform: rotate(5deg); }
 }
 
+/* 降落伞 */
 .parachute {
     position: absolute;
     font-size: 80px;
     z-index: 5;
 }
 
+/* 降落伞绳索 */
 .parachute-strings {
     position: absolute;
     width: 2px;
@@ -91,6 +105,7 @@ body {
     transform: translateX(-50%);
 }
 
+/* 降落伞伞面 */
 .parachute-canvas {
     position: absolute;
     width: 100px;
@@ -102,6 +117,7 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* 数学题显示 */
 .math-problem-display {
     position: absolute;
     top: 100px;
@@ -119,6 +135,7 @@ body {
     z-index: 15;
 }
 
+/* 炮弹样式 */
 .cannonball {
     position: absolute;
     width: 30px;
@@ -129,23 +146,50 @@ body {
     z-index: 20;
 }
 
+/* 控制区域 */
 .control-area {
-    padding: 30px;
+    padding: 15px;
     background: linear-gradient(135deg, #FFE66D 0%, #FFB347 100%);
 }
 
+/* 大炮容器 */
 .cannon-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
 }
 
+/* 简单倒计时显示 */
+.countdown-display-simple {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    border-radius: 10px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 倒计时数字 */
+.countdown-number-simple {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 大炮 */
 .cannon {
     position: relative;
     width: 120px;
     height: 80px;
 }
 
+/* 大炮炮管 */
 .cannon-barrel {
     position: absolute;
     width: 100px;
@@ -159,6 +203,7 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* 大炮炮管炮口 */
 .cannon-barrel::before {
     content: '';
     position: absolute;
@@ -170,6 +215,7 @@ body {
     top: 10px;
 }
 
+/* 大炮底座 */
 .cannon-base {
     position: absolute;
     width: 80px;
@@ -181,10 +227,12 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* 输入区域 */
 .input-area {
     text-align: center;
 }
 
+/* 倒计时显示（隐藏） */
 .countdown-display {
     background: white;
     padding: 20px 40px;
@@ -194,22 +242,26 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* 倒计时文本 */
 .countdown-text {
     font-size: 2em;
     font-weight: bold;
     color: #333;
 }
 
+/* 紧急状态倒计时 */
 .countdown-text.urgent {
     color: #FF6B6B;
     animation: pulse 0.5s ease-in-out infinite;
 }
 
+/* 脉冲动画 */
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
 }
 
+/* 输入组 */
 .input-group {
     display: flex;
     justify-content: center;
@@ -217,6 +269,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* 答案输入框 */
 #answerInput {
     width: 200px;
     padding: 15px 20px;
@@ -230,12 +283,14 @@ body {
     font-family: inherit;
 }
 
+/* 输入框焦点状态 */
 #answerInput:focus {
     border-color: #FFD700;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     transform: scale(1.05);
 }
 
+/* 发射按钮 */
 .fire-btn {
     padding: 15px 40px;
     font-size: 1.5em;
@@ -250,15 +305,18 @@ body {
     font-family: inherit;
 }
 
+/* 按钮悬停状态 */
 .fire-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 按钮按下状态 */
 .fire-btn:active {
     transform: scale(0.95);
 }
 
+/* 游戏说明 */
 .instructions {
     background: rgba(255, 255, 255, 0.9);
     padding: 15px;
@@ -266,12 +324,14 @@ body {
     border: 3px solid #4CAF50;
 }
 
+/* 说明文字 */
 .instructions p {
     font-size: 1.1em;
     color: #333;
     font-weight: bold;
 }
 
+/* 游戏结束弹窗 */
 .game-over-modal {
     position: fixed;
     top: 0;
@@ -285,6 +345,7 @@ body {
     z-index: 1000;
 }
 
+/* 弹窗内容 */
 .modal-content {
     background: linear-gradient(135deg, #FFE66D 0%, #FFB347 100%);
     padding: 40px;
@@ -295,17 +356,20 @@ body {
     animation: popIn 0.5s ease;
 }
 
+/* 弹窗出现动画 */
 @keyframes popIn {
     0% { transform: scale(0); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* 弹窗标题 */
 .modal-content h2 {
     font-size: 2.5em;
     color: #333;
     margin-bottom: 20px;
 }
 
+/* 弹窗文字 */
 .modal-content p {
     font-size: 1.8em;
     color: #333;
@@ -313,6 +377,7 @@ body {
     font-weight: bold;
 }
 
+/* 重新开始按钮 */
 .restart-btn {
     padding: 15px 40px;
     font-size: 1.5em;
@@ -327,11 +392,13 @@ body {
     font-family: inherit;
 }
 
+/* 重新开始按钮悬停 */
 .restart-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 升级弹窗 */
 .level-up-modal {
     position: fixed;
     top: 0;
@@ -345,6 +412,7 @@ body {
     z-index: 1000;
 }
 
+/* 升级弹窗内容 */
 .level-up-content {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 40px;
@@ -356,6 +424,7 @@ body {
     max-width: 500px;
 }
 
+/* 升级弹窗标题 */
 .level-up-content h2 {
     font-size: 2.5em;
     color: white;
@@ -363,6 +432,7 @@ body {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* 升级弹窗文字 */
 .level-up-content p {
     font-size: 1.3em;
     color: white;
@@ -370,6 +440,7 @@ body {
     font-weight: bold;
 }
 
+/* 关卡信息 */
 .level-info {
     background: rgba(255, 255, 255, 0.2);
     padding: 10px 20px;
@@ -377,6 +448,7 @@ body {
     margin: 20px 0;
 }
 
+/* 升级按钮组 */
 .level-up-buttons {
     display: flex;
     gap: 15px;
@@ -384,6 +456,7 @@ body {
     margin-top: 20px;
 }
 
+/* 升级按钮 */
 .level-up-btn {
     padding: 15px 30px;
     font-size: 1.2em;
@@ -398,11 +471,13 @@ body {
     font-family: inherit;
 }
 
+/* 升级按钮悬停 */
 .level-up-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 留在当前关卡按钮 */
 .stay-btn {
     padding: 15px 30px;
     font-size: 1.2em;
@@ -417,11 +492,13 @@ body {
     font-family: inherit;
 }
 
+/* 留在当前关卡按钮悬停 */
 .stay-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 游戏通关弹窗 */
 .game-completed-modal {
     position: fixed;
     top: 0;
@@ -435,6 +512,7 @@ body {
     z-index: 1000;
 }
 
+/* 游戏通关弹窗内容 */
 .game-completed-content {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     padding: 50px;
@@ -446,6 +524,7 @@ body {
     max-width: 600px;
 }
 
+/* 通关弹窗标题 */
 .game-completed-content h2 {
     font-size: 3em;
     color: white;
@@ -453,6 +532,7 @@ body {
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* 通关弹窗文字 */
 .game-completed-content p {
     font-size: 1.5em;
     color: white;
@@ -460,6 +540,7 @@ body {
     font-weight: bold;
 }
 
+/* 成就显示 */
 .achievement {
     font-size: 2em;
     color: #FFD700;
@@ -467,6 +548,7 @@ body {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* 通关按钮组 */
 .completed-buttons {
     display: flex;
     gap: 20px;
@@ -474,6 +556,7 @@ body {
     margin-top: 30px;
 }
 
+/* 大重新开始按钮 */
 .restart-btn-large {
     padding: 20px 40px;
     font-size: 1.5em;
@@ -488,11 +571,13 @@ body {
     font-family: inherit;
 }
 
+/* 大重新开始按钮悬停 */
 .restart-btn-large:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 退出按钮 */
 .exit-btn {
     padding: 20px 40px;
     font-size: 1.5em;
@@ -507,11 +592,13 @@ body {
     font-family: inherit;
 }
 
+/* 退出按钮悬停 */
 .exit-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* 退出消息 */
 .exit-message {
     position: fixed;
     top: 50%;
@@ -527,6 +614,7 @@ body {
     z-index: 1001;
 }
 
+/* 退出消息标题 */
 .exit-message h2 {
     font-size: 3em;
     color: white;
@@ -534,12 +622,281 @@ body {
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* 退出消息文字 */
 .exit-message p {
     font-size: 1.8em;
     color: white;
     font-weight: bold;
 }
 
+/* 手机适配 */
+@media (max-width: 768px) {
+    /* 页面主体 */
+    body {
+        padding: 5px;
+        min-height: 100vh;
+    }
+    
+    /* 游戏容器 */
+    .game-container {
+        max-width: 100%;
+        border-radius: 10px;
+        border-width: 2px;
+        height: 100vh;
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* 游戏头部 */
+    .game-header {
+        padding: 10px;
+    }
+    
+    /* 游戏标题 */
+    .game-header h1 {
+        font-size: 1.2em;
+        margin-bottom: 5px;
+    }
+    
+    /* 得分板 */
+    .score-board {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .score-board span {
+        font-size: 0.75em;
+    }
+    
+    /* 游戏区域 */
+    .game-area {
+        height: 40vh;
+        min-height: 200px;
+    }
+    
+    /* 怪物 */
+    .monster {
+        font-size: 35px;
+    }
+    
+    /* 降落伞 */
+    .parachute {
+        font-size: 45px;
+    }
+    
+    /* 数学题显示 */
+    .problem-display {
+        font-size: 1em;
+        padding: 5px 10px;
+    }
+    
+    /* 控制区域 */
+    .control-area {
+        padding: 10px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    /* 大炮容器 */
+    .cannon-container {
+        margin-bottom: 10px;
+        gap: 15px;
+    }
+    
+    /* 简单倒计时显示 */
+    .countdown-display-simple {
+        min-width: 50px;
+        height: 50px;
+        border-width: 2px;
+    }
+    
+    /* 倒计时数字 */
+    .countdown-number-simple {
+        font-size: 1.5em;
+    }
+    
+    /* 大炮 */
+    .cannon {
+        width: 60px;
+        height: 40px;
+    }
+    
+    /* 大炮炮管 */
+    .cannon-barrel {
+        width: 45px;
+        height: 20px;
+        left: 8px;
+    }
+    
+    /* 大炮炮管炮口 */
+    .cannon-barrel::before {
+        width: 10px;
+        height: 10px;
+        right: -2px;
+        top: 5px;
+    }
+    
+    /* 大炮底座 */
+    .cannon-base {
+        width: 40px;
+        height: 20px;
+        left: 10px;
+    }
+    
+    /* 输入组 */
+    .input-group {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    /* 答案输入框 */
+    #answerInput {
+        width: 100%;
+        max-width: 180px;
+        font-size: 1em;
+        padding: 8px;
+    }
+    
+    /* 发射按钮 */
+    .fire-btn {
+        width: 100%;
+        max-width: 180px;
+        padding: 10px;
+        font-size: 1em;
+    }
+    
+    /* 倒计时显示 */
+    .countdown-display {
+        font-size: 0.9em;
+        padding: 5px 10px;
+        margin-top: 5px;
+    }
+    
+    /* 弹窗内容 */
+    .modal-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    /* 弹窗标题 */
+    .modal-content h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    
+    /* 弹窗文字 */
+    .modal-content p {
+        font-size: 1em;
+        margin-bottom: 8px;
+    }
+    
+    /* 重新开始按钮 */
+    .restart-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    
+    /* 升级弹窗内容 */
+    .level-up-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    /* 升级弹窗标题 */
+    .level-up-content h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    
+    /* 升级弹窗文字 */
+    .level-up-content p {
+        font-size: 1em;
+        margin-bottom: 8px;
+    }
+    
+    /* 关卡信息 */
+    .level-info {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin: 15px 0;
+    }
+    
+    /* 升级按钮组 */
+    .level-up-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* 升级按钮和留在当前关卡按钮 */
+    .level-up-btn, .stay-btn {
+        width: 100%;
+        max-width: 180px;
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    
+    /* 游戏通关弹窗内容 */
+    .game-completed-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    /* 通关弹窗标题 */
+    .game-completed-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    
+    /* 通关弹窗文字 */
+    .game-completed-content p {
+        font-size: 1em;
+        margin-bottom: 8px;
+    }
+    
+    /* 成就显示 */
+    .achievement {
+        font-size: 1.3em;
+        margin: 15px 0;
+    }
+    
+    /* 通关按钮组 */
+    .completed-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* 大重新开始按钮和退出按钮 */
+    .restart-btn-large, .exit-btn {
+        width: 100%;
+        max-width: 180px;
+        padding: 12px;
+        font-size: 1em;
+    }
+    
+    /* 退出消息 */
+    .exit-message {
+        padding: 30px 40px;
+        max-width: 90%;
+    }
+    
+    /* 退出消息标题 */
+    .exit-message h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    
+    /* 退出消息文字 */
+    .exit-message p {
+        font-size: 1.2em;
+    }
+}
+
+/* 爆炸效果 */
 .explosion {
     position: absolute;
     font-size: 60px;
@@ -547,11 +904,13 @@ body {
     z-index: 25;
 }
 
+/* 爆炸动画 */
 @keyframes explode {
     0% { transform: scale(0); opacity: 1; }
     100% { transform: scale(2); opacity: 0; }
 }
 
+/* 得分弹出效果 */
 .score-popup {
     position: absolute;
     font-size: 2em;
@@ -561,6 +920,7 @@ body {
     z-index: 30;
 }
 
+/* 气泡消息 */
 .bubble-message {
     position: absolute;
     background: white;
@@ -576,6 +936,7 @@ body {
     animation: bubblePop 2s ease-out forwards;
 }
 
+/* 气泡消息尾巴 */
 .bubble-message::before {
     content: '';
     position: absolute;
@@ -587,6 +948,7 @@ body {
     border-color: #FF6B6B transparent transparent;
 }
 
+/* 气泡消息尾巴内部 */
 .bubble-message::after {
     content: '';
     position: absolute;
@@ -598,6 +960,7 @@ body {
     border-color: white transparent transparent;
 }
 
+/* 气泡弹出动画 */
 @keyframes bubblePop {
     0% { transform: scale(0); opacity: 0; }
     10% { transform: scale(1.1); opacity: 1; }
@@ -606,11 +969,13 @@ body {
     100% { transform: scale(0.8); opacity: 0; }
 }
 
+/* 得分上升动画 */
 @keyframes scoreUp {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-50px); opacity: 0; }
 }
 
+/* 云朵装饰 */
 .cloud {
     position: absolute;
     font-size: 40px;
@@ -618,6 +983,7 @@ body {
     animation: float 20s linear infinite;
 }
 
+/* 云朵飘动动画 */
 @keyframes float {
     0% { transform: translateX(-100px); }
     100% { transform: translateX(calc(100% + 100px)); }
