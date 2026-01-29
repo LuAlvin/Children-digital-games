@@ -24,6 +24,82 @@ const levelConfig = {
 // 怪物表情数组
 const monsterEmojis = ['👾', '👻', '👽', '🤖', '🦄', '🐸', '🐯', '🦁', '🐸', '🦊'];
 
+// 音频控制函数
+const audioManager = {
+    bgMusic: null,
+    hitSound: null,
+    errorSound: null,
+    levelUpSound: null,
+    gameCompleteSound: null,
+    urgentSound: null,
+    gameOverSound: null,
+    
+    init() {
+        this.bgMusic = document.getElementById('bgMusic');
+        this.hitSound = document.getElementById('hitSound');
+        this.errorSound = document.getElementById('errorSound');
+        this.levelUpSound = document.getElementById('levelUpSound');
+        this.gameCompleteSound = document.getElementById('gameCompleteSound');
+        this.urgentSound = document.getElementById('urgentSound');
+        this.gameOverSound = document.getElementById('gameOverSound');
+    },
+    
+    playBackgroundMusic() {
+        if (this.bgMusic) {
+            this.bgMusic.volume = 0.3;
+            this.bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+        }
+    },
+    
+    stopBackgroundMusic() {
+        if (this.bgMusic) {
+            this.bgMusic.pause();
+        }
+    },
+    
+    playHitSound() {
+        if (this.hitSound) {
+            this.hitSound.currentTime = 0;
+            this.hitSound.play().catch(e => console.log('击中音效播放失败:', e));
+        }
+    },
+    
+    playErrorSound() {
+        if (this.errorSound) {
+            this.errorSound.currentTime = 0;
+            this.errorSound.play().catch(e => console.log('错误音效播放失败:', e));
+        }
+    },
+    
+    playLevelUpSound() {
+        if (this.levelUpSound) {
+            this.levelUpSound.currentTime = 0;
+            this.levelUpSound.play().catch(e => console.log('升级音效播放失败:', e));
+        }
+    },
+    
+    playGameCompleteSound() {
+        if (this.gameCompleteSound) {
+            this.gameCompleteSound.currentTime = 0;
+            this.gameCompleteSound.play().catch(e => console.log('通关音效播放失败:', e));
+        }
+    },
+    
+    playUrgentSound() {
+        if (this.urgentSound) {
+            this.urgentSound.currentTime = 0;
+            this.urgentSound.play().catch(e => console.log('紧迫音效播放失败:', e));
+        }
+    },
+    
+    playGameOverSound() {
+        if (this.gameOverSound) {
+            this.gameOverSound.currentTime = 0;
+            this.gameOverSound.play().catch(e => console.log('失败音效播放失败:', e));
+        }
+    }
+};
+
 // 初始化游戏
 function initGame() {
     gameState.score = 0;
@@ -33,6 +109,9 @@ function initGame() {
     gameState.currentMonster = null;
     gameState.currentProblem = null;
     gameState.cannonballs = [];
+    
+    // 初始化音频管理器
+    audioManager.init();
     
     updateScoreDisplay();
     document.getElementById('gameOverModal').style.display = 'none';
@@ -45,6 +124,9 @@ function initGame() {
     
     // 添加背景云朵
     addClouds();
+    
+    // 播放背景音乐
+    audioManager.playBackgroundMusic();
     
     // 开始生成怪物
     startSpawningMonsters();
@@ -202,6 +284,11 @@ function updateCountdownDisplay() {
     
     const remainingTime = gameState.currentMonster.remainingTime;
     countdownNumber.textContent = remainingTime;
+    
+    // 当时间少于5秒时，播放紧迫音效
+    if (remainingTime <= 5 && remainingTime > 4) {
+        audioManager.playUrgentSound();
+    }
 }
 
 // 开始怪物降落
@@ -374,6 +461,9 @@ function checkHit(cannonball, answer) {
         // 答案正确，击中怪物
         clearInterval(gameState.gameInterval);
         
+        // 播放击中音效
+        audioManager.playHitSound();
+        
         // 显示得分动画
         showScorePopup(gameState.currentMonster.x, gameState.currentMonster.y);
         
@@ -391,6 +481,9 @@ function checkHit(cannonball, answer) {
         // 答案错误，炮弹消失，显示气泡消息
         cannonball.remove();
         showBubbleMessage(gameState.currentMonster.x, gameState.currentMonster.y, '小朋友，答案不对哦');
+        
+        // 播放错误音效
+        audioManager.playErrorSound();
     }
 }
 
@@ -468,6 +561,9 @@ function showLevelUpModal(nextLevel) {
     // 暂停游戏
     pauseGame();
     
+    // 播放升级音效
+    audioManager.playLevelUpSound();
+    
     const modal = document.createElement('div');
     modal.className = 'level-up-modal';
     modal.innerHTML = `
@@ -511,6 +607,12 @@ function showLevelUpModal(nextLevel) {
 function showGameCompletedModal() {
     // 暂停游戏
     pauseGame();
+    
+    // 播放通关音效
+    audioManager.playGameCompleteSound();
+    
+    // 停止背景音乐
+    audioManager.stopBackgroundMusic();
     
     const modal = document.createElement('div');
     modal.className = 'game-completed-modal';
@@ -573,6 +675,12 @@ function endGame() {
     clearInterval(gameState.gameInterval);
     clearInterval(gameState.spawnInterval);
     clearInterval(gameState.countdownInterval);
+    
+    // 播放游戏失败音效
+    audioManager.playGameOverSound();
+    
+    // 停止背景音乐
+    audioManager.stopBackgroundMusic();
     
     // 显示游戏结束弹窗
     document.getElementById('finalScore').textContent = gameState.score;
