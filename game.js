@@ -2,13 +2,23 @@
 let gameState = {
     score: 0,
     lives: 3,
+    level: 1,
+    levelUpShown: {},
     isGameOver: false,
+    isPaused: false,
     currentMonster: null,
     currentProblem: null,
     cannonballs: [],
     gameInterval: null,
     spawnInterval: null,
     countdownInterval: null
+};
+
+// 关卡配置
+const levelConfig = {
+    1: { maxSum: 11, maxNum: 10, name: '第一关' },
+    2: { maxSum: 20, maxNum: 19, name: '第二关' },
+    3: { maxSum: 100, maxNum: 99, name: '第三关' }
 };
 
 // 怪物表情数组
@@ -18,6 +28,7 @@ const monsterEmojis = ['👾', '👻', '👽', '🤖', '🦄', '🐸', '🐯', '
 function initGame() {
     gameState.score = 0;
     gameState.lives = 3;
+    gameState.level = 1;
     gameState.isGameOver = false;
     gameState.currentMonster = null;
     gameState.currentProblem = null;
@@ -129,20 +140,21 @@ function spawnMonster() {
     startMonsterDescent();
 }
 
-// 生成20以内的数学题
+// 生成数学题（根据当前关卡）
 function generateMathProblem() {
     const operations = ['+', '-'];
     const operation = operations[Math.floor(Math.random() * operations.length)];
+    const config = levelConfig[gameState.level];
     let num1, num2, answer;
     
     if (operation === '+') {
-        // 加法：两个数相加不超过20
-        num1 = Math.floor(Math.random() * 11);
-        num2 = Math.floor(Math.random() * (11 - num1));
+        // 加法：两个数相加不超过当前关卡最大和
+        num1 = Math.floor(Math.random() * (config.maxNum + 1));
+        num2 = Math.floor(Math.random() * (config.maxSum - num1 + 1));
         answer = num1 + num2;
     } else {
         // 减法：确保结果非负
-        num1 = Math.floor(Math.random() * 11);
+        num1 = Math.floor(Math.random() * (config.maxNum + 1));
         num2 = Math.floor(Math.random() * (num1 + 1));
         answer = num1 - num2;
     }
@@ -167,7 +179,7 @@ function startCountdown() {
     
     // 每秒更新倒计时
     gameState.countdownInterval = setInterval(() => {
-        if (!gameState.currentMonster || gameState.isGameOver) {
+        if (!gameState.currentMonster || gameState.isGameOver || gameState.isPaused) {
             clearInterval(gameState.countdownInterval);
             return;
         }
@@ -207,7 +219,7 @@ function startMonsterDescent() {
     if (!gameState.currentMonster) return;
     
     gameState.gameInterval = setInterval(() => {
-        if (gameState.isGameOver || !gameState.currentMonster) {
+        if (gameState.isGameOver || gameState.isPaused || !gameState.currentMonster) {
             clearInterval(gameState.gameInterval);
             return;
         }
@@ -384,6 +396,9 @@ function checkHit(cannonball, answer) {
         // 增加分数
         gameState.score += 10;
         updateScoreDisplay();
+        
+        // 检查是否需要升级关卡
+        checkLevelUp();
     } else {
         // 答案错误，炮弹消失，显示气泡消息
         cannonball.remove();
@@ -421,10 +436,147 @@ function showBubbleMessage(x, y, message) {
     }, 2000);
 }
 
+// 暂停游戏
+function pauseGame() {
+    gameState.isPaused = true;
+    clearInterval(gameState.gameInterval);
+    clearInterval(gameState.spawnInterval);
+    clearInterval(gameState.countdownInterval);
+}
+
+// 恢复游戏
+function resumeGame() {
+    gameState.isPaused = false;
+    
+    // 移除当前怪物（如果有）
+    if (gameState.currentMonster) {
+        removeCurrentMonster();
+    }
+    
+    // 重新开始生成怪物
+    startSpawningMonsters();
+}
+
+// 检查是否需要升级关卡
+function checkLevelUp() {
+    const nextLevel = gameState.level + 1;
+    
+    // 检查是否通关（第三关达到300分）
+    if (gameState.level === 3 && gameState.score >= 300 && !gameState.levelUpShown['completed']) {
+        gameState.levelUpShown['completed'] = true;
+        showGameCompletedModal();
+        return;
+    }
+    
+    // 检查是否有下一关、分数达到升级要求且该关卡升级提示未显示过
+    if (nextLevel <= 3 && gameState.score >= gameState.level * 100 && !gameState.levelUpShown[nextLevel]) {
+        gameState.levelUpShown[nextLevel] = true;
+        showLevelUpModal(nextLevel);
+    }
+}
+
+// 显示关卡升级弹窗
+function showLevelUpModal(nextLevel) {
+    // 暂停游戏
+    pauseGame();
+    
+    const modal = document.createElement('div');
+    modal.className = 'level-up-modal';
+    modal.innerHTML = `
+        <div class="level-up-content">
+            <h2>🎉 恭喜升级！🎉</h2>
+            <p>你已经获得 ${gameState.score} 分！</p>
+            <p>准备好进入 ${levelConfig[nextLevel].name} 了吗？</p>
+            <p class="level-info">难度：${levelConfig[nextLevel].maxSum} 以内的加减法</p>
+            <div class="level-up-buttons">
+                <button class="level-up-btn" id="confirmLevelUp">🚀 开始新关卡</button>
+                <button class="stay-btn" id="stayCurrentLevel">🎮 留在当前关卡</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // 绑定按钮事件
+    document.getElementById('confirmLevelUp').addEventListener('click', () => {
+        gameState.level = nextLevel;
+        updateScoreDisplay();
+        modal.remove();
+        // 恢复游戏并生成新题目
+        resumeGame();
+    });
+    
+    document.getElementById('stayCurrentLevel').addEventListener('click', () => {
+        // 清零分数
+        gameState.score = 0;
+        updateScoreDisplay();
+        
+        // 重置当前关卡的升级提示标记，允许再次触发
+        gameState.levelUpShown[gameState.level + 1] = false;
+        
+        modal.remove();
+        // 恢复游戏并生成新题目
+        resumeGame();
+    });
+}
+
+// 显示通关弹窗
+function showGameCompletedModal() {
+    // 暂停游戏
+    pauseGame();
+    
+    const modal = document.createElement('div');
+    modal.className = 'game-completed-modal';
+    modal.innerHTML = `
+        <div class="game-completed-content">
+            <h2>🏆 恭喜通关！🏆</h2>
+            <p>你已经完成了所有关卡！</p>
+            <p>最终得分: ${gameState.score} 分</p>
+            <p class="achievement">你真棒！🌟</p>
+            <div class="completed-buttons">
+                <button class="restart-btn-large" id="restartGameBtn">🔄 重新开始</button>
+                <button class="exit-btn" id="exitGameBtn">🚪 退出游戏</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // 绑定按钮事件
+    document.getElementById('restartGameBtn').addEventListener('click', () => {
+        modal.remove();
+        restartGame();
+    });
+    
+    document.getElementById('exitGameBtn').addEventListener('click', () => {
+        exitGame();
+    });
+}
+
+// 退出游戏
+function exitGame() {
+    gameState.isGameOver = true;
+    clearInterval(gameState.gameInterval);
+    clearInterval(gameState.spawnInterval);
+    clearInterval(gameState.countdownInterval);
+    
+    // 移除所有弹窗
+    const modals = document.querySelectorAll('.level-up-modal, .game-completed-modal');
+    modals.forEach(modal => modal.remove());
+    
+    // 显示退出游戏提示
+    const exitMessage = document.createElement('div');
+    exitMessage.className = 'exit-message';
+    exitMessage.innerHTML = `
+        <h2>👋 感谢游玩！👋</h2>
+        <p>下次再见！</p>
+    `;
+    document.body.appendChild(exitMessage);
+}
+
 // 更新分数显示
 function updateScoreDisplay() {
     document.getElementById('score').textContent = gameState.score;
     document.getElementById('lives').textContent = gameState.lives;
+    document.getElementById('level').textContent = levelConfig[gameState.level].name;
 }
 
 // 结束游戏
@@ -441,6 +593,7 @@ function endGame() {
 
 // 重新开始游戏
 function restartGame() {
+    gameState.levelUpShown = {};
     initGame();
 }
 

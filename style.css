@@ -332,6 +332,214 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+.level-up-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.level-up-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    border: 5px solid #FFD700;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.5s ease;
+    max-width: 500px;
+}
+
+.level-up-content h2 {
+    font-size: 2.5em;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.level-up-content p {
+    font-size: 1.3em;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.level-info {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.level-up-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.level-up-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.level-up-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.stay-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.stay-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.game-completed-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-completed-content {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    border: 5px solid #FFD700;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.5s ease;
+    max-width: 600px;
+}
+
+.game-completed-content h2 {
+    font-size: 3em;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.game-completed-content p {
+    font-size: 1.5em;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.achievement {
+    font-size: 2em;
+    color: #FFD700;
+    margin: 20px 0;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.completed-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.restart-btn-large {
+    padding: 20px 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.restart-btn-large:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.exit-btn {
+    padding: 20px 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.exit-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.exit-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 80px;
+    border-radius: 30px;
+    text-align: center;
+    border: 5px solid #FFD700;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.5s ease;
+    z-index: 1001;
+}
+
+.exit-message h2 {
+    font-size: 3em;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.exit-message p {
+    font-size: 1.8em;
+    color: white;
+    font-weight: bold;
+}
+
 .explosion {
     position: absolute;
     font-size: 60px;
